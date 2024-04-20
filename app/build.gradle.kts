@@ -78,6 +78,7 @@ dependencies {
     implementation(libs.retrofit2.converter)
     implementation(libs.okhttp3)
     implementation(libs.okhttp3.logging.interceptor)
+    implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:1.0.0")
 
     //Paging 3
     implementation("androidx.paging:paging-compose:3.3.0-beta01")
