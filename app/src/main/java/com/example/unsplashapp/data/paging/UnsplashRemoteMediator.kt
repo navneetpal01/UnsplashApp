@@ -27,17 +27,37 @@ class UnsplashRemoteMediator @Inject constructor(
         return try {
             val currentPage = when (loadType) {
                 LoadType.REFRESH -> {
-
+                    val remoteKeys = getRemoteKeyClosestToCurrentPosition(state)
+                    remoteKeys?.nextPage?.minus(1) ? 1
                 }
 
                 LoadType.PREPEND -> {
-
+                    val remoteKeys = getRemoteKeyForFirstItem(state)
+                    val prevPage = remoteKeys?.prevPage
+                        ?: return MediatorResult.Success(
+                            endOfPaginationReached = remoteKeys != null
+                        )
+                    prevPage
                 }
 
                 LoadType.APPEND -> {
-
+                    val remoteKeys = getRemoteKeyForLastItem(state)
+                    val nextPage = remoteKeys?.nextPage
+                        ?: return MediatorResult.Success(
+                            endOfPaginationReached = remoteKeys != null
+                        )
+                    nextPage
                 }
             }
+
+
+
+
+
+
+
+
+
         }
     }
 
