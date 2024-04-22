@@ -12,7 +12,7 @@ interface UnsplashApi{
     @GET("/photos")
     suspend fun getAllImages(
         @Query("page") page : Int,
-        @Query("per_page") per_page : Int
+        @Query("per_page") perPage : Int
     ) : List<UnsplashImage>
 
     @Headers("Authorization: Client-ID gUfLkcKZWX1WjT4nKItMGEVeBQDHUkWq8HDz2c-1AYE")

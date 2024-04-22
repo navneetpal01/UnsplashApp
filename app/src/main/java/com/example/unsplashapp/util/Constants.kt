@@ -11,4 +11,9 @@ object Constants{
     //Database
 
     const val UNSPLASH_DATABASE = "unsplash_database"
+
+
+    //Paging
+
+    const val ITEMS_PER_PAGE = 10
 }
