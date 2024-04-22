@@ -7,6 +7,7 @@ import androidx.paging.RemoteMediator
 import com.example.unsplashapp.data.local.UnsplashDatabase
 import com.example.unsplashapp.data.remote.UnsplashApi
 import com.example.unsplashapp.model.UnsplashImage
+import com.example.unsplashapp.model.UnsplashRemoteKeys
 import javax.inject.Inject
 
 
@@ -14,12 +15,61 @@ import javax.inject.Inject
 class UnsplashRemoteMediator @Inject constructor(
     private val unsplashApi: UnsplashApi,
     private val unsplashDatabase: UnsplashDatabase
-) : RemoteMediator<Int,UnsplashImage>(){
+) : RemoteMediator<Int, UnsplashImage>() {
+
+    private val unsplashImageDao = unsplashDatabase.UnsplashImageDao()
+    private val unsplashRemoteKeysDao = unsplashDatabase.UnsplashRemoteKeysDao()
+
     override suspend fun load(
         loadType: LoadType,
         state: PagingState<Int, UnsplashImage>
     ): MediatorResult {
-        TODO("Not yet implemented")
+        return try {
+            val currentPage = when (loadType) {
+                LoadType.REFRESH -> {
+
+                }
+
+                LoadType.PREPEND -> {
+
+                }
+
+                LoadType.APPEND -> {
+
+                }
+            }
+        }
     }
+
+
+
+    private suspend fun getRemoteKeyClosestToCurrentPosition(
+        state: PagingState<Int, UnsplashImage>
+    ): UnsplashRemoteKeys? {
+        return state.anchorPosition?.let { position ->
+            state.closestItemToPosition(position)?.id?.let { id ->
+                unsplashRemoteKeysDao.getRemoteKeys(id = id)
+            }
+        }
+    }
+
+    private suspend fun getRemoteKeyForFirstItem(
+        state: PagingState<Int, UnsplashImage>
+    ): UnsplashRemoteKeys? {
+        return state.pages.firstOrNull { it.data.isNotEmpty() }?.data?.firstOrNull()
+            ?.let { unsplashImage ->
+                unsplashRemoteKeysDao.getRemoteKeys(id = unsplashImage.id)
+            }
+    }
+
+    private suspend fun getRemoteKeyForLastItem(
+        state: PagingState<Int, UnsplashImage>
+    ): UnsplashRemoteKeys? {
+        return state.pages.lastOrNull { it.data.isNotEmpty() }?.data?.lastOrNull()
+            ?.let { unsplashImage ->
+                unsplashRemoteKeysDao.getRemoteKeys(id = unsplashImage.id)
+            }
+    }
+
 
 }
