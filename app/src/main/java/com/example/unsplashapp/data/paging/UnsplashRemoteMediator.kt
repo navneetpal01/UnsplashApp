@@ -10,15 +10,13 @@ import com.example.unsplashapp.data.remote.UnsplashApi
 import com.example.unsplashapp.model.UnsplashImage
 import com.example.unsplashapp.model.UnsplashRemoteKeys
 import com.example.unsplashapp.util.Constants.ITEMS_PER_PAGE
-import javax.inject.Inject
 
 
 @OptIn(ExperimentalPagingApi::class)
-class UnsplashRemoteMediator @Inject constructor(
+class UnsplashRemoteMediator(
     private val unsplashApi: UnsplashApi,
     private val unsplashDatabase: UnsplashDatabase
 ) : RemoteMediator<Int, UnsplashImage>() {
-
 
 
     private val unsplashImageDao = unsplashDatabase.UnsplashImageDao()
@@ -34,6 +32,7 @@ class UnsplashRemoteMediator @Inject constructor(
                     val remoteKeys = getRemoteKeyClosestToCurrentPosition(state)
                     remoteKeys?.nextPage?.minus(1) ?: 1
                 }
+
                 LoadType.PREPEND -> {
                     val remoteKeys = getRemoteKeyForFirstItem(state)
                     val prevPage = remoteKeys?.prevPage
@@ -42,6 +41,7 @@ class UnsplashRemoteMediator @Inject constructor(
                         )
                     prevPage
                 }
+
                 LoadType.APPEND -> {
                     val remoteKeys = getRemoteKeyForLastItem(state)
                     val nextPage = remoteKeys?.nextPage
