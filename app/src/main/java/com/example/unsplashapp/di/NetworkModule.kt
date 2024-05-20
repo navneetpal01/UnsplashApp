@@ -37,7 +37,7 @@ object NetworkModule {
         val contentType = "application/json".toMediaType()
 
         val json = Json{
-            //To ignore the fields that we don't need as we are using only jew feilds from json in our api
+            //To ignore the fields that we don't need as we are using only jew fields from json in our api
             ignoreUnknownKeys = true
         }
 

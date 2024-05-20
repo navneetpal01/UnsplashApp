@@ -8,7 +8,6 @@ import com.example.unsplashapp.data.local.UnsplashDatabase
 import com.example.unsplashapp.data.paging.UnsplashRemoteMediator
 import com.example.unsplashapp.data.remote.UnsplashApi
 import com.example.unsplashapp.model.UnsplashImage
-import com.example.unsplashapp.util.Constants
 import com.example.unsplashapp.util.Constants.ITEMS_PER_PAGE
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
